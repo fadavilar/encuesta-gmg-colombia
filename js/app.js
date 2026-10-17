@@ -186,6 +186,12 @@
     return '';
   }
 
+  const refLink = r => `${esc(r.cita)} <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.url.replace(/^https:\/\/(doi\.org\/)?/, r.url.includes('doi.org') ? 'doi:' : ''))}</a>`;
+  function fuenteHtml(f) {
+    return `<details class="fuente"><summary>Fuente: ${esc(f.instrumento)}</summary>
+      <ul>${f.refs.map(r => `<li>${refLink(r)}</li>`).join('')}</ul></details>`;
+  }
+
   function renderQuestion(q) {
     // En preguntas sensibles el distintivo ya dice que es opcional; no se repite en la nota.
     const note = q.s ? (q.note || '').replace(/^Pregunta opcional: puede dejarla en blanco\.\s*/, '') : q.note;
@@ -195,6 +201,7 @@
       ${q.s ? '<p class="badge-sens">Tema sensible · puede dejarla en blanco</p>' : ''}
       ${note ? `<p class="q-note">${esc(note)}</p>` : ''}
       ${q.items.map((it, i) => `<div class="item" data-item="${i}" ${itVisible(it) ? '' : 'hidden'}>${renderItem(it, q)}</div>`).join('')}
+      ${q.fuente ? fuenteHtml(E.FUENTES[q.fuente]) : ''}
       <button type="button" class="link-btn" data-clear="${q.n}">Borrar mi respuesta</button>
     </section>`;
   }
@@ -227,10 +234,12 @@
       const s = LS.get('gmg:' + r + ':' + (codigoURL || 'sin-codigo'));
       return s && !s.enviado && s.inicio ? r : null;
     }).filter(Boolean);
+    const inv = CFG.investigador;
     show(`<div class="hero">
       <p class="eyebrow">${esc(CFG.estudio)}</p>
       <h2>¿Quién responde la encuesta?</h2>
-      <p class="lead">Hay una encuesta para personas con miastenia gravis generalizada y otra para sus cuidadores. Elija la que le corresponde.</p>
+      <p class="lead">Gracias por su interés. Queremos conocer cómo es vivir con miastenia gravis generalizada y recibir atención en Colombia, y cómo la enfermedad afecta el trabajo, el tiempo y los gastos de los pacientes y de quienes los cuidan.</p>
+      <p>Hay una encuesta para personas con miastenia gravis generalizada y otra para sus cuidadores. Si en su hogar responden los dos, cada uno llena la suya por separado. Elija la que le corresponde:</p>
       <div class="choices">
         <a class="choice" href="?r=paciente${codigoURL ? '&c=' + encodeURIComponent(codigoURL) : ''}">
           <strong>Soy paciente</strong><span>Tengo miastenia gravis generalizada · 40 a 60 min</span>
@@ -239,7 +248,18 @@
           <strong>Soy cuidador(a)</strong><span>Acompaño a una persona con miastenia gravis · 30 a 45 min</span>
           ${saved.includes('cuidador') ? '<em>Tiene respuestas guardadas: continuar</em>' : ''}</a>
       </div>
-    </div>`);
+      <ul class="facts">
+        <li><strong>Voluntaria y confidencial.</strong> Antes de empezar leerá el consentimiento informado. Su nombre no aparecerá en los resultados.</li>
+        <li><strong>A su ritmo.</strong> Sus respuestas se guardan en este dispositivo; puede hacer pausas y volver con el mismo enlace.</li>
+        <li><strong>Sin cifras exactas.</strong> Cuando le pregunten por dinero o tiempo, un cálculo aproximado es suficiente.</li>
+      </ul>
+      <p class="muted">¿Dudas? Investigador responsable: ${esc(inv.nombre)} · <a href="tel:+57${esc(inv.telefono)}">${esc(inv.telefono)}</a> · <a href="mailto:${esc(inv.correo)}">${esc(inv.correo)}</a></p>
+    </div>
+    <section class="sources" aria-labelledby="fuentes-h">
+      <h3 id="fuentes-h">Instrumentos validados que incluye la encuesta</h3>
+      ${Object.values(E.FUENTES).map(f => `<div class="source"><p><strong>${esc(f.instrumento)}</strong> <span class="muted">· ${esc(f.usadaEn)}</span></p>
+        <ul>${f.refs.map(r => `<li>${refLink(r)}</li>`).join('')}</ul></div>`).join('')}
+    </section>`);
   }
 
   function screenConsentimiento() {
@@ -250,7 +270,8 @@
     <article class="paper">
       <p class="eyebrow">${esc(CFG.estudio)}</p>
       <h2>${esc(S.titulo)}</h2>
-      <p class="muted">${esc(S.subtitulo)}${st.codigo ? ` · Código de participante: <strong>${esc(st.codigo)}</strong>` : ''}</p>
+      <p class="muted">${esc(S.subtitulo)}${st.codigo ? ` · Código de participante: <strong>${esc(st.codigo)}</strong>` : ''}
+        · <a href="?r=${S.rol === 'paciente' ? 'cuidador' : 'paciente'}${st.codigo ? '&c=' + encodeURIComponent(st.codigo) : ''}">${S.rol === 'paciente' ? '¿No es paciente? Cambiar a la encuesta de cuidadores' : '¿No es cuidador(a)? Cambiar a la encuesta de pacientes'}</a></p>
       <p class="lead">${esc(S.bienvenida)}</p>
 
       <div class="callout">

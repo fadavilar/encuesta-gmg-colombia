@@ -23,14 +23,27 @@ Sitio publicado: <https://fadavilar.github.io/encuesta-gmg-colombia/>
 
 ## Enlaces para el correo
 
+Enlace único para el correo (pacientes y cuidadores): <https://fadavilar.github.io/encuesta-gmg-colombia/>.
+Abre la portada **¿Quién responde la encuesta?**, donde cada persona elige la encuesta de paciente o de cuidador.
+
+Enlaces directos opcionales (saltan la portada):
+
 | Para | Enlace |
 |---|---|
 | Pacientes | `https://fadavilar.github.io/encuesta-gmg-colombia/?r=paciente` |
 | Cuidadores | `https://fadavilar.github.io/encuesta-gmg-colombia/?r=cuidador` |
 
-Opcional: agregue un código de participante con `&c=`, por ejemplo `?r=paciente&c=P001` y `?r=cuidador&c=C001`.
-El código se guarda en la columna `codigo` y permite emparejar paciente y cuidador sin usar nombres.
-Sin `r=`, la página pregunta quién responde.
+Código de participante opcional con `c=`, por ejemplo `?c=F001` (portada) o `?r=paciente&c=F001`. El código se guarda
+en la columna `codigo`; usar el mismo código para paciente y cuidador de un hogar permite emparejarlos sin nombres.
+
+## Instrumentos validados
+
+- **Escala de sobrecarga del cuidador de Zarit** (cuidadores, pregunta 27): Zarit et al. 1980,
+  [doi:10.1093/geront/20.6.649](https://doi.org/10.1093/geront/20.6.649); validación colombiana Barreto-Osorio et al. 2015,
+  [doi:10.5294/aqui.2015.15.3.5](https://doi.org/10.5294/aqui.2015.15.3.5).
+- **MG-ADL / calidad de vida en miastenia gravis** (pacientes, pregunta 38): Wolfe et al. 1999,
+  [doi:10.1212/WNL.52.7.1487](https://doi.org/10.1212/WNL.52.7.1487); Hoyos Cerón 2014,
+  [repositorio UNAL](https://repositorio.unal.edu.co/handle/unal/21862).
 
 ## Conectar Google Sheets (una sola vez, ≈ 5 min)
 

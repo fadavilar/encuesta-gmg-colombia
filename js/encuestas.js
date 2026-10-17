@@ -42,6 +42,26 @@
     'El costo de adecuar la casa o de transporte accesible'
   ];
   const OPCIONAL = 'Pregunta opcional: puede dejarla en blanco.';
+
+  /* Fuentes de los instrumentos validados (DOI verificados en Crossref, 16-oct-2026). */
+  const FUENTES = {
+    zarit: {
+      instrumento: 'Escala de sobrecarga del cuidador de Zarit (22 ítems)',
+      usadaEn: 'Cuidadores, pregunta 27',
+      refs: [
+        { cita: 'Zarit SH, Reever KE, Bach-Peterson J. Relatives of the impaired elderly: correlates of feelings of burden. Gerontologist. 1980;20(6):649-55.', url: 'https://doi.org/10.1093/geront/20.6.649' },
+        { cita: 'Barreto-Osorio RV, Campos de Aldana MS, Carrillo-González GM, Coral-Ibarra R, et al. Entrevista Percepción de Carga del Cuidado de Zarit: pruebas psicométricas para Colombia. Aquichan. 2015;15(3):368-80.', url: 'https://doi.org/10.5294/aqui.2015.15.3.5' }
+      ]
+    },
+    mgadl: {
+      instrumento: 'Actividades de la vida diaria y calidad de vida en miastenia gravis (MG-ADL)',
+      usadaEn: 'Pacientes, pregunta 38',
+      refs: [
+        { cita: 'Wolfe GI, Herbelin L, Nations SP, Foster B, Bryan WW, Barohn RJ. Myasthenia gravis activities of daily living profile. Neurology. 1999;52(7):1487-9.', url: 'https://doi.org/10.1212/WNL.52.7.1487' },
+        { cita: 'Hoyos Cerón JA. Evaluación de la calidad de vida en pacientes con miastenia gravis [tesis de especialización en Neurología]. Bogotá: Universidad Nacional de Colombia; 2014.', url: 'https://repositorio.unal.edu.co/handle/unal/21862' }
+      ]
+    }
+  };
   const anio = { min: 1940, max: 2026 };
   const de100 = { min: 0, max: 100 };
 
@@ -141,7 +161,7 @@
             { t: 'nums', k: 'P36', f: [['espera', 'Tiempo de espera para conseguir la cita de control', 'días']] }
           ] },
           { n: 37, q: '¿Alguna vez le han hecho una escala o cuestionario sobre cómo la enfermedad afecta sus actividades diarias?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P37', o: ['Sí', 'No', 'No sé'] }] },
-          { n: 38, q: 'Pensando en los últimos 7 días, marque qué tanto le ha afectado la enfermedad en cada actividad (0 = nada; 3 = muchísimo).', items: [{ t: 'grid', k: 'P38', rows: ['Hablar', 'Masticar', 'Tragar', 'Respirar', 'Cepillarse los dientes o peinarse', 'Levantarse de una silla', 'Ver doble', 'Mantener los párpados abiertos'], cols: ['0', '1', '2', '3'] }] },
+          { n: 38, q: 'Pensando en los últimos 7 días, marque qué tanto le ha afectado la enfermedad en cada actividad (0 = nada; 3 = muchísimo).', fuente: 'mgadl', items: [{ t: 'grid', k: 'P38', rows: ['Hablar', 'Masticar', 'Tragar', 'Respirar', 'Cepillarse los dientes o peinarse', 'Levantarse de una silla', 'Ver doble', 'Mantener los párpados abiertos'], cols: ['0', '1', '2', '3'] }] },
           { n: 39, q: 'En el último año, su enfermedad ha estado…', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P39', o: ['Mejor', 'Igual', 'Peor', 'No sé'] }] },
           { n: 40, q: 'Además de neurología, ¿qué otros servicios usa por la enfermedad?', items: [
             { t: 'grid', k: 'P40', rows: ['Fisioterapia o rehabilitación', 'Fonoaudiología', 'Psicología o psiquiatría', 'Nutrición', 'Oftalmología', 'Neumología', 'Endocrinología', 'Otro'], cols: ['Lo uso y lo consigo', 'Lo uso con dificultad', 'Lo necesito y no lo consigo', 'No lo necesito'] },
@@ -358,7 +378,7 @@
         titulo: 'Cómo le ha afectado cuidar', min: 7,
         preguntas: [
           { n: 26, q: 'Desde que cuida a su familiar, ¿qué tanto han cambiado estas áreas de su vida?', s: true, note: OPCIONAL, items: [{ t: 'grid', k: 'C26', rows: ['Su salud física', 'Su ánimo y tranquilidad', 'Su sueño y descanso', 'Su tiempo libre', 'Sus relaciones con la familia y los amigos', 'Su proyecto personal o de estudio'], cols: ['Nada', 'Poco', 'Moderadamente / Regular', 'Bastante', 'Mucho'] }] },
-          { n: 27, q: 'Cuestionario sobre la carga del cuidador', note: 'A continuación, se presenta una lista de afirmaciones, en las cuales se refleja cómo se sienten, a veces, las personas que cuidan a otra persona. Después de leer cada afirmación, debe indicar con qué frecuencia se siente Ud. así: nunca, raramente, algunas veces, bastante a menudo y casi siempre. A la hora de responder piense que no existen respuestas acertadas o equivocadas, sino tan sólo su experiencia.', items: [{ t: 'grid', k: 'C27', rows: ZARIT, cols: ['Nunca', 'Rara vez', 'Algunas veces', 'Bastantes veces', 'Casi siempre'] }] },
+          { n: 27, q: 'Cuestionario sobre la carga del cuidador', note: 'A continuación, se presenta una lista de afirmaciones, en las cuales se refleja cómo se sienten, a veces, las personas que cuidan a otra persona. Después de leer cada afirmación, debe indicar con qué frecuencia se siente Ud. así: nunca, raramente, algunas veces, bastante a menudo y casi siempre. A la hora de responder piense que no existen respuestas acertadas o equivocadas, sino tan sólo su experiencia.', fuente: 'zarit', items: [{ t: 'grid', k: 'C27', rows: ZARIT, cols: ['Nunca', 'Rara vez', 'Algunas veces', 'Bastantes veces', 'Casi siempre'] }] },
           { n: 28, q: '¿Cómo describiría su salud en general?', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'C28', o: ['Excelente', 'Muy buena', 'Buena', 'Regular', 'Mala'] }] },
           { n: 29, q: '¿Ha necesitado atención médica o psicológica por el cansancio de cuidar?', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'C29', o: ['Sí, y la recibí', 'Sí, y no la he podido recibir', 'No la he necesitado'] }] },
           { n: 30, q: 'Cuando usted no puede cuidar…', s: true, note: OPCIONAL, items: [
@@ -439,5 +459,5 @@
 
   const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C.', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'];
 
-  window.ENCUESTAS = { paciente, cuidador, COSTOS, DEPARTAMENTOS };
+  window.ENCUESTAS = { paciente, cuidador, COSTOS, DEPARTAMENTOS, FUENTES };
 })();
