@@ -5,11 +5,15 @@
    descargar una copia de las respuestas. */
 window.ENCUESTA_CONFIG = {
   endpoint: 'https://script.google.com/macros/s/AKfycbxgytayYeNZRFel5HLmcj_kYmrxj7qnbsUG1-RwBb2CTmtqdDPEcBN6HCm8lfvZP-MjJw/exec',
-  version: 'v16102026',
+  version: 'v21102026',
   estudio: 'Estudio sobre la vida con miastenia gravis generalizada en Colombia',
   realiza: 'Este es un estudio de investigación social a cargo del investigador responsable, Fabian Antonio Dávila Ramírez.',
   responsableDatos: 'Funcolehf',
   conservacion: '3 meses',
+  // Concepto del comité de ética (Resolución 8430 de 1993). Ejemplo: 'Aprobado por el Comité de Ética de …, acta n.º … del …'.
+  comiteEtica: '',
+  devolucion: 'Sí. Al terminar el estudio publicaremos en esta misma página un resumen de los resultados en lenguaje sencillo y lo compartiremos con las asociaciones de pacientes.',
+  alternativas: '¿Prefiere responder por teléfono, en papel o con ayuda de alguien del estudio? Escriba o llame a:',
   investigador: {
     nombre: 'Fabian Antonio Dávila Ramírez',
     telefono: '3102221277',

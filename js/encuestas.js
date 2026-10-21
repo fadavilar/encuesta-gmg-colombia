@@ -1,4 +1,4 @@
-/* Contenido de las encuestas autoaplicadas (v16-oct-2026).
+/* Contenido de las encuestas autoaplicadas (v21-oct-2026).
    Texto tomado de Encuesta_gMG_Paciente_autoaplicada_v16102026.docx y
    Encuesta_gMG_Cuidador_autoaplicada_v16102026.docx.
 
@@ -58,10 +58,54 @@
       usadaEn: 'Pacientes, pregunta 38',
       refs: [
         { cita: 'Wolfe GI, Herbelin L, Nations SP, Foster B, Bryan WW, Barohn RJ. Myasthenia gravis activities of daily living profile. Neurology. 1999;52(7):1487-9.', url: 'https://doi.org/10.1212/WNL.52.7.1487' },
-        { cita: 'Hoyos Cerón JA. Evaluación de la calidad de vida en pacientes con miastenia gravis [tesis de especialización en Neurología]. Bogotá: Universidad Nacional de Colombia; 2014.', url: 'https://repositorio.unal.edu.co/handle/unal/21862' }
+        { cita: 'Hoyos Cerón JA. Evaluación de la calidad de vida en pacientes con miastenia gravis [tesis de especialización en Neurología]. Bogotá: Universidad Nacional de Colombia; 2014.', url: 'https://repositorio.unal.edu.co/handle/unal/21862' },
+        { cita: 'Dewilde S, Qi CZ, De Ruyck F, Paci S, Van de Veire L, Griffiths A, et al. A cost analysis of reductions in work productivity for MG patients and their caregivers by symptom severity. Front Public Health. 2025;13:1538789. (Bandas MG-ADL: leve 0–4, moderada 5–9, grave ≥10).', url: 'https://doi.org/10.3389/fpubh.2025.1538789' }
+      ]
+    },
+    costos: {
+      instrumento: 'Componentes de costos del paciente y del cuidador (perspectiva social)',
+      usadaEn: 'Partes de gastos, trabajo y adaptaciones de ambas encuestas',
+      refs: [
+        { cita: 'Mattingly TJ 2nd, Diaz Fernandez V, Seo D, Melgar Castillo AI. A review of caregiver costs included in cost-of-illness studies. Expert Rev Pharmacoecon Outcomes Res. 2022;22(7):1051-60.', url: 'https://doi.org/10.1080/14737167.2022.2080056' },
+        { cita: 'Hughes T, Howard JF Jr, Silvestri NJ, Anderson AEL, Sato M, Suchotliff S, et al. The economic burden of individuals living with generalized myasthenia gravis and facing social determinants of health challenges. Front Public Health. 2023;11:1247931.', url: 'https://doi.org/10.3389/fpubh.2023.1247931' },
+        { cita: 'Dewilde S, et al. A cost analysis of reductions in work productivity for MG patients and their caregivers by symptom severity. Front Public Health. 2025;13:1538789.', url: 'https://doi.org/10.3389/fpubh.2025.1538789' }
       ]
     }
   };
+
+  /* MG-ADL: anclajes de cada actividad (Wolfe et al., 1999). Traducción de trabajo al español
+     en lenguaje sencillo; reemplazar por la versión validada y licenciada antes del trabajo de campo. */
+  const MGADL = [
+    ['Hablar', ['Normal', 'A veces arrastra las palabras o la voz sale nasal', 'Siempre arrastra las palabras o la voz sale nasal, pero se le entiende', 'Cuesta entender lo que dice']],
+    ['Masticar', ['Normal', 'Se cansa al masticar alimentos sólidos', 'Se cansa al masticar alimentos blandos', 'Se alimenta por sonda']],
+    ['Tragar', ['Normal', 'Rara vez se atraganta', 'Se atraganta con frecuencia y ha tenido que cambiar lo que come', 'Se alimenta por sonda']],
+    ['Respirar', ['Normal', 'Le falta el aire al hacer esfuerzos', 'Le falta el aire en reposo', 'Depende de un respirador']],
+    ['Cepillarse los dientes o peinarse', ['Sin dificultad', 'Con esfuerzo adicional, pero sin necesitar descansos', 'Necesita descansar mientras lo hace', 'No puede hacer una de estas actividades']],
+    ['Levantarse de una silla', ['Sin dificultad', 'Leve: a veces se apoya en los brazos', 'Moderada: siempre se apoya en los brazos', 'Grave: necesita ayuda de otra persona']],
+    ['Visión doble', ['No tiene', 'La tiene, pero no todos los días', 'Todos los días, pero no todo el tiempo', 'Todo el tiempo']],
+    ['Párpados caídos', ['No tiene', 'Los tiene, pero no todos los días', 'Todos los días, pero no todo el tiempo', 'Todo el tiempo']]
+  ];
+
+  /* Contexto colombiano (categorías DANE) */
+  const ZONA = ['Casco urbano (cabecera municipal)', 'Centro poblado (corregimiento o inspección)', 'Zona rural dispersa (vereda)', 'No sé'];
+  const ESTRATO = ['1', '2', '3', '4', '5', '6', 'Vivienda sin estrato', 'No sé'];
+  const ETNIA = ['Indígena', 'Gitano(a) o Rrom', 'Raizal del archipiélago de San Andrés, Providencia y Santa Catalina', 'Palenquero(a) de San Basilio', 'Negro(a), mulato(a), afrodescendiente, afrocolombiano(a)', 'Ningún grupo étnico', 'Prefiero no responder'];
+  const ASISTENCIA = ['No, la respondí yo solo(a)', 'Sí, alguien me ayudó a leer, marcar o escribir', 'Sí, alguien escribió lo que yo le decía'];
+
+  /* Adaptaciones locativas, ayudas técnicas y cambios de vivienda (gastos de una sola vez). */
+  const ADAPTACIONES = [
+    'Barras de apoyo, agarraderas o pasamanos',
+    'Adaptación del baño (silla o banco de ducha, barras, elevador de sanitario, ducha sin escalón)',
+    'Rampas, eliminación de escalones o traslado de la habitación al primer piso',
+    'Cama hospitalaria, colchón especial u otros cambios en el dormitorio',
+    'Silla de ruedas, caminador, bastón u otra ayuda para moverse',
+    'Equipos respiratorios en casa (oxígeno, BiPAP o CPAP, aspirador de secreciones)',
+    'Ventilador o aire acondicionado para manejar el calor',
+    'Adaptación, cambio o compra de vehículo para los traslados',
+    'Mudanza a una vivienda más accesible o más cerca del lugar de tratamiento',
+    'Mudanza a otra ciudad o municipio para recibir tratamiento',
+    'Otra (escriba cuál)'
+  ];
   const anio = { min: 1940, max: 2026 };
   const de100 = { min: 0, max: 100 };
 
@@ -70,7 +114,7 @@
     rol: 'paciente',
     prefijo: 'P',
     titulo: 'Encuesta para personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para pacientes · v16-oct-2026',
+    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026',
     tiempo: '40 a 60 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia con la miastenia gravis. Esta encuesta es para personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -86,11 +130,13 @@
       beneficios: 'No recibirá un beneficio económico ni clínico directo. Su participación puede ayudar a que se entienda mejor la carga de la gMG en Colombia y a mejorar el acceso y la atención de otras personas.',
       voluntario: 'Su participación es completamente voluntaria. Puede no participar o retirarse en cualquier momento, sin dar explicaciones y sin que esto afecte la atención médica que recibe, la entrega de medicamentos ni ningún trámite con su EPS o IPS, hoy ni en el futuro. Si se retira, sus respuestas podrán eliminarse mientras no hayan sido anonimizadas ni agregadas.',
       decision: [
-        'Tengo 18 años o más.',
-        'Un médico me ha dicho que tengo miastenia gravis generalizada.',
-        'He leído (o me han leído) este documento y he podido hacer preguntas.',
-        'Acepto participar voluntariamente en esta encuesta y que mis respuestas se usen como se explicó.',
-        'Autorizo que me contacten más adelante para confirmar o ampliar mis respuestas (opcional).'
+        { k: 'consent_edad', t: 'Tengo 18 años o más.', req: true },
+        { k: 'consent_condicion', t: 'Un médico me ha dicho que tengo miastenia gravis generalizada.', req: true },
+        { k: 'consent_lectura', t: 'He leído (o me han leído) este documento y he podido hacer preguntas.', req: true },
+        { k: 'consent_participa', t: 'Acepto participar voluntariamente en esta encuesta y que mis respuestas se usen como se explicó.', req: true },
+        { k: 'consent_datos_sensibles', t: 'Autorizo de manera expresa el tratamiento de mis datos personales sensibles (de salud, trabajo e ingresos) para los fines de este estudio, según la Ley 1581 de 2012.', req: true },
+        { k: 'consent_vinculacion', t: 'Acepto que mis respuestas se unan, mediante un código y sin nombres, con las de mi cuidador(a) si también participa (opcional).' },
+        { k: 'consent_recontacto', t: 'Autorizo que me contacten más adelante para confirmar o ampliar mis respuestas (opcional).' }
       ]
     },
     partes: [
@@ -100,6 +146,16 @@
           { n: 1, q: '¿Qué edad tiene?', items: [{ t: 'nums', k: 'P01', f: [['', 'Edad', 'años', { min: 18, max: 110 }]] }] },
           { n: 2, q: '¿Cuál es su sexo?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P02', o: SEXO }] },
           { n: 3, q: '¿Dónde vive?', items: [{ t: 'place', k: 'P03' }] },
+          { id: 'P_vivienda', q: 'Sobre su vivienda y su hogar', items: [
+            { t: 'single', k: 'P_zona', label: '¿En qué zona queda su vivienda?', o: ZONA },
+            { t: 'single', k: 'P_estrato', label: 'Estrato de su vivienda (aparece en el recibo de la luz)', o: ESTRATO },
+            { t: 'nums', k: 'P_hogar', f: [['personas', 'Personas que viven en su hogar, incluido usted', 'personas', { min: 1, max: 30 }], ['dependientes', 'De ellas, cuántas dependen económicamente de otros (niños, adultos mayores, personas con discapacidad)', 'personas', { min: 0, max: 30 }]] }
+          ] },
+          { id: 'P_etnia', q: 'De acuerdo con su cultura, pueblo o rasgos físicos, usted se reconoce como:', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'P_etnia', o: ETNIA }] },
+          { id: 'P_traslado', q: '¿Cuánto tiempo tarda en llegar desde su casa al lugar donde lo atiende neurología?', items: [
+            { t: 'nums', k: 'P_traslado', f: [['min', 'Tiempo de ida', 'minutos', { min: 0, max: 1440 }]] },
+            { t: 'single', k: 'P_traslado_municipio', label: '¿Ese lugar queda en otro municipio?', o: ['Sí', 'No'] }
+          ] },
           { n: 4, q: '¿Cuál es su afiliación al sistema de salud?', items: [
             { t: 'single', k: 'P04_regimen', label: 'Régimen', o: ['Régimen contributivo', 'Régimen subsidiado', 'Régimen especial o de excepción (Fuerzas Militares, magisterio, otros)', 'Sin afiliación', 'No sé'] },
             { t: 'texts', k: 'P04', f: [['eps', 'Nombre de su EPS']] }
@@ -107,7 +163,9 @@
           { n: 5, q: '¿Cuál es el nivel de estudios más alto que ha alcanzado?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P05', o: ESTUDIOS }] },
           { n: 6, q: '¿Con quién vive?', note: 'Puede marcar varias respuestas.', items: [{ t: 'multi', k: 'P06', o: ['Solo(a)', 'Pareja', 'Hijos', 'Padres', 'Otros familiares', 'Otras personas', 'Persona contratada para ayudarme'], excl: ['Solo(a)'] }] },
           { n: 7, q: '¿A qué se dedica o se dedicaba cuando empezó la enfermedad?', note: 'Puede marcar varias respuestas.', items: [{ t: 'multi', k: 'P07', o: ['Empleado(a) con contrato', 'Independiente', 'Trabajo informal', 'Oficios del hogar o cuidado de personas', 'Estudiante', 'Pensionado(a)', 'Sin trabajo'], otro: true }] },
-          { n: 8, q: '¿En qué año tuvo los primeros síntomas y en qué año le dijeron que tenía miastenia gravis?', items: [{ t: 'nums', k: 'P08', f: [['sintomas', 'Año de los primeros síntomas', '(aprox.)', anio], ['dx', 'Año del diagnóstico', '(aprox.)', anio]] }] }
+          { n: 8, q: '¿En qué año tuvo los primeros síntomas y en qué año le dijeron que tenía miastenia gravis?', items: [{ t: 'nums', k: 'P08', f: [['sintomas', 'Año de los primeros síntomas', '(aprox.)', anio], ['dx', 'Año del diagnóstico', '(aprox.)', anio]] }] },
+          { id: 'P_cuidador', q: '¿Tiene un cuidador(a) principal, es decir, un familiar o amigo que lo acompaña o le ayuda sin recibir pago?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P_cuidador', o: ['Sí, y también va a responder la encuesta para cuidadores', 'Sí, pero no va a responder la encuesta', 'Sí, y no sé si responderá', 'No tengo cuidador(a)'] }] },
+          { id: 'P_vinculo', q: 'Datos para unir sus respuestas con las de su cuidador(a)', vinculo: true, note: 'Opcional. Sirve solo si usted y su cuidador(a) no usan el mismo código de hogar. Escriba sus propios datos; su cuidador(a) escribirá los mismos. Se convierten en un código en este dispositivo y no se envían tal como los escribe.', showIf: r => r.P_cuidador !== 'No tengo cuidador(a)' && r.consent_vinculacion === 'Sí', items: [{ t: 'vinculo', k: 'P_vinculo', persona: 'usted' }] }
         ]
       },
       {
@@ -161,7 +219,7 @@
             { t: 'nums', k: 'P36', f: [['espera', 'Tiempo de espera para conseguir la cita de control', 'días']] }
           ] },
           { n: 37, q: '¿Alguna vez le han hecho una escala o cuestionario sobre cómo la enfermedad afecta sus actividades diarias?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P37', o: ['Sí', 'No', 'No sé'] }] },
-          { n: 38, q: 'Pensando en los últimos 7 días, marque qué tanto le ha afectado la enfermedad en cada actividad (0 = nada; 3 = muchísimo).', fuente: 'mgadl', items: [{ t: 'grid', k: 'P38', rows: ['Hablar', 'Masticar', 'Tragar', 'Respirar', 'Cepillarse los dientes o peinarse', 'Levantarse de una silla', 'Ver doble', 'Mantener los párpados abiertos'], cols: ['0', '1', '2', '3'] }] },
+          { n: 38, q: 'Pensando en los últimos 7 días, en cada actividad marque la frase que mejor describe cómo ha estado.', note: 'Cada actividad tiene cuatro opciones, de 0 (normal) a 3 (más grave).', fuente: 'mgadl', items: [{ t: 'adl', k: 'P38', rows: MGADL }] },
           { n: 39, q: 'En el último año, su enfermedad ha estado…', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P39', o: ['Mejor', 'Igual', 'Peor', 'No sé'] }] },
           { n: 40, q: 'Además de neurología, ¿qué otros servicios usa por la enfermedad?', items: [
             { t: 'grid', k: 'P40', rows: ['Fisioterapia o rehabilitación', 'Fonoaudiología', 'Psicología o psiquiatría', 'Nutrición', 'Oftalmología', 'Neumología', 'Endocrinología', 'Otro'], cols: ['Lo uso y lo consigo', 'Lo uso con dificultad', 'Lo necesito y no lo consigo', 'No lo necesito'] },
@@ -235,6 +293,10 @@
             { t: 'single', k: 'P66_quien', label: '¿Quién pagó?', o: ['Mi empleador', 'La EPS', 'Ambos', 'Nadie', 'No estuve incapacitado(a)', 'No sé'] },
             { t: 'single', k: 'P66_parte', label: '¿Qué parte del salario recibió?', o: ['100 % del salario', 'Entre 50 % y 99 %', 'Menos del 50 %', 'Nada', 'No sé'], showIf: r => r.P66_quien !== 'No estuve incapacitado(a)' }
           ] },
+          { id: 'P_discapacidad', q: 'Certificación de discapacidad y calificación laboral', s: true, note: OPCIONAL, items: [
+            { t: 'single', k: 'P_certdisc', label: '¿Tiene certificado de discapacidad?', o: ['Sí', 'Lo solicité y está en trámite', 'No', 'No sabía que existía'] },
+            { t: 'single', k: 'P_pcl', label: '¿Le han hecho calificación de pérdida de capacidad laboral (PCL)?', o: ['No', 'Sí, menos del 50 %', 'Sí, 50 % o más', 'Está en trámite', 'No sé'] }
+          ] },
           { n: 67, q: 'En su trabajo o estudio…', s: true, note: OPCIONAL, items: [
             { t: 'single', k: 'P67_saben', label: '¿Saben de su enfermedad?', o: ['Sí, todos lo saben', 'Sí, algunos', 'No lo saben'] },
             { t: 'single', k: 'P67_experiencia', label: '¿Cómo ha sido la experiencia?', o: ['Me han apoyado', 'Les es indiferente', 'He tenido dificultades o me han juzgado', 'No aplica'] }
@@ -250,7 +312,8 @@
         titulo: 'Gastos y economía', min: 8,
         intro: 'Escriba cuánto paga usted o su hogar por la enfermedad. Deje en blanco lo que no aplique. Si no recuerda la cifra, dé un cálculo aproximado.',
         preguntas: [
-          { n: 69, q: 'Anote sus gastos por la enfermedad:', items: [{ t: 'costs', k: 'P69' }] },
+          { n: 69, q: 'Anote sus gastos por la enfermedad:', note: 'Gastos que se repiten. Las adaptaciones de la vivienda y las compras grandes van en la siguiente pregunta.', fuente: 'costos', items: [{ t: 'costs', k: 'P69' }] },
+          { id: 'P_adapt', q: 'Por la enfermedad, ¿ha tenido que hacer alguna de estas adaptaciones en su vivienda, comprar ayudas o cambiar de vivienda?', note: 'Para cada fila elija una opción. Si lo hizo, anote más o menos cuánto costó en total, en qué año y quién lo pagó.', fuente: 'costos', items: [{ t: 'invest', k: 'P_adapt' }] },
           { n: 70, q: 'En total, ¿cuánto gasta de su bolsillo por la enfermedad en un mes típico y en un mes malo?', s: true, note: OPCIONAL, items: [{ t: 'nums', k: 'P70', f: [['tipico', 'Mes típico', 'pesos'], ['malo', 'Mes malo (crisis, hospitalización)', 'pesos']] }] },
           { n: 71, q: 'En los últimos 12 meses, ¿cuántos meses malos tuvo (con crisis, hospitalización o muchas consultas de urgencia)?', items: [{ t: 'nums', k: 'P71', f: [['', 'Meses malos', 'meses', { min: 0, max: 12 }]] }] },
           { n: 72, q: 'El cubrimiento de su EPS (o seguro) a los costos de su enfermedad le ha parecido…', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P72', o: ['Adecuado', 'Aceptable', 'Insuficiente', 'Inexistente', 'No sé'] }] },
@@ -270,7 +333,8 @@
           { n: 80, q: 'De todo lo que ha vivido con la enfermedad, ¿cuáles han sido los tres momentos más difíciles?', note: OPCIONAL, items: [{ t: 'long', k: 'P80' }] },
           { n: 81, q: '¿Hubo algún momento en que sintió que lo atendieron bien de verdad? Cuéntenos cuál.', note: OPCIONAL, items: [{ t: 'long', k: 'P81' }] },
           { n: 82, q: 'Si pudiera hablarle hoy a la EPS, a la clínica o al Ministerio de Salud, ¿qué les diría sobre la atención de la miastenia?', note: OPCIONAL, items: [{ t: 'long', k: 'P82' }] },
-          { n: 83, q: '¿Hay algo importante que no le preguntamos y que crea que debemos saber?', note: OPCIONAL, items: [{ t: 'long', k: 'P83' }] }
+          { n: 83, q: '¿Hay algo importante que no le preguntamos y que crea que debemos saber?', note: OPCIONAL, items: [{ t: 'long', k: 'P83' }] },
+          { id: 'P_asistencia', q: '¿Alguien le ayudó a responder esta encuesta?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P_asistencia', o: ASISTENCIA }] }
         ]
       }
     ]
@@ -306,7 +370,7 @@
     rol: 'cuidador',
     prefijo: 'C',
     titulo: 'Encuesta para cuidadores de personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para cuidadores · v16-oct-2026',
+    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026',
     tiempo: '30 a 45 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia cuidando a una persona con miastenia gravis. Esta encuesta es para cuidadores principales de personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -321,12 +385,15 @@
       riesgos: 'El riesgo es mínimo. Hablar de la enfermedad, del cuidado, del trabajo o del dinero puede cansarlo(a) o despertar emociones. Puede saltarse cualquier pregunta, parar cuando quiera o no enviar la encuesta. Si lo necesita, pida orientación en apoyo psicológico a través de su EPS.',
       beneficios: 'No recibirá un beneficio económico ni clínico directo. Su participación puede ayudar a que se entienda mejor la carga de la gMG en Colombia, incluida la que asumen los cuidadores, y a mejorar el acceso y la atención de otras personas.',
       voluntario: 'Su participación es completamente voluntaria. Puede no participar o retirarse en cualquier momento, sin dar explicaciones y sin que esto afecte la atención médica de su familiar, la entrega de medicamentos ni ningún trámite con su EPS o IPS, hoy ni en el futuro. Si se retira, sus respuestas podrán eliminarse mientras no hayan sido anonimizadas ni agregadas.',
+      terceros: 'Algunas preguntas tratan de la salud y la situación de su familiar. Responda solo lo que sepa y lo que su familiar estaría de acuerdo en compartir; puede dejar en blanco lo demás.',
       decision: [
-        'Tengo 18 años o más.',
-        'Cuido (o he cuidado en el último año) a una persona con miastenia gravis generalizada, sin recibir un pago por hacerlo.',
-        'He leído (o me han leído) este documento y he podido hacer preguntas.',
-        'Acepto participar voluntariamente en esta encuesta y que mis respuestas se usen como se explicó.',
-        'Autorizo que me contacten más adelante para confirmar o ampliar mis respuestas (opcional).'
+        { k: 'consent_edad', t: 'Tengo 18 años o más.', req: true },
+        { k: 'consent_condicion', t: 'Cuido (o he cuidado en el último año) a una persona con miastenia gravis generalizada, sin recibir un pago por hacerlo.', req: true },
+        { k: 'consent_lectura', t: 'He leído (o me han leído) este documento y he podido hacer preguntas.', req: true },
+        { k: 'consent_participa', t: 'Acepto participar voluntariamente en esta encuesta y que mis respuestas se usen como se explicó.', req: true },
+        { k: 'consent_datos_sensibles', t: 'Autorizo de manera expresa el tratamiento de mis datos personales sensibles (de salud, trabajo e ingresos) para los fines de este estudio, según la Ley 1581 de 2012.', req: true },
+        { k: 'consent_vinculacion', t: 'Acepto que mis respuestas se unan, mediante un código y sin nombres, con las de la persona que cuido si también participa (opcional).' },
+        { k: 'consent_recontacto', t: 'Autorizo que me contacten más adelante para confirmar o ampliar mis respuestas (opcional).' }
       ]
     },
     partes: [
@@ -337,11 +404,23 @@
           { n: 1, q: '¿Qué edad tiene?', items: [{ t: 'nums', k: 'C01', f: [['', 'Su edad', 'años', { min: 18, max: 110 }]] }] },
           { n: 2, q: '¿Cuál es su sexo?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C02', o: SEXO }] },
           { n: 3, q: '¿Dónde vive?', items: [{ t: 'place', k: 'C03' }] },
+          { id: 'C_vivienda', q: 'Sobre su vivienda y su hogar', items: [
+            { t: 'single', k: 'C_zona', label: '¿En qué zona queda su vivienda?', o: ZONA },
+            { t: 'single', k: 'C_estrato', label: 'Estrato de su vivienda (aparece en el recibo de la luz)', o: ESTRATO },
+            { t: 'nums', k: 'C_hogar', f: [['personas', 'Personas que viven en su hogar, incluido usted', 'personas', { min: 1, max: 30 }]] }
+          ] },
+          { id: 'C_etnia', q: 'De acuerdo con su cultura, pueblo o rasgos físicos, usted se reconoce como:', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'C_etnia', o: ETNIA }] },
           { n: 4, q: '¿Cuál es su parentesco con la persona que cuida?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C04', o: ['Pareja', 'Hijo(a)', 'Padre o madre', 'Hermano(a)', 'Otro familiar', 'Amigo(a) u otra persona'] }] },
           { n: 5, q: '¿Vive con la persona que cuida?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C05', o: ['Sí', 'No'] }] },
           { n: 6, q: '¿Cuál es el nivel de estudios más alto que ha alcanzado?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C06', o: ESTUDIOS }] },
           { n: 7, q: '¿Hace cuánto tiempo cuida a su familiar con miastenia y en qué año le diagnosticaron la enfermedad?', items: [{ t: 'nums', k: 'C07', f: [['anios', 'Tiempo cuidándolo(a)', 'años'], ['dx', 'Año del diagnóstico de su familiar', '(aprox.)', anio]] }] },
-          { n: 8, q: 'Su familiar tiene cobertura de salud en el régimen…', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C08', o: ['Contributivo', 'Subsidiado', 'Especial o de excepción', 'Sin afiliación', 'No sé'] }] }
+          { n: 8, q: 'Su familiar tiene cobertura de salud en el régimen…', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C08', o: ['Contributivo', 'Subsidiado', 'Especial o de excepción', 'Sin afiliación', 'No sé'] }] },
+          { id: 'C_otros_cuidados', q: 'Además de su familiar con miastenia, ¿cuida a otras personas (niños, adultos mayores o personas con discapacidad)?', items: [
+            { t: 'single', k: 'C_otros_cuidados', o: ['No', 'Sí'] },
+            { t: 'nums', k: 'C_otros_cuidados', f: [['n', '¿A cuántas personas?', 'personas', { min: 1, max: 20 }]], showIf: r => r.C_otros_cuidados === 'Sí' }
+          ] },
+          { id: 'C_paciente_responde', q: '¿La persona que usted cuida también va a responder la encuesta para pacientes?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C_paciente_responde', o: ['Sí, ya la respondió', 'Sí, la va a responder', 'No', 'No sé'] }] },
+          { id: 'C_vinculo', q: 'Datos para unir sus respuestas con las de su familiar', vinculo: true, note: 'Opcional. Sirve solo si usted y su familiar no usan el mismo código de hogar. Escriba los datos de la persona con miastenia que usted cuida; ella escribirá los mismos. Se convierten en un código en este dispositivo y no se envían tal como los escribe.', showIf: r => r.C_paciente_responde !== 'No' && r.consent_vinculacion === 'Sí', items: [{ t: 'vinculo', k: 'C_vinculo', persona: 'su familiar' }] }
         ]
       },
       {
@@ -350,12 +429,15 @@
           { n: 9, q: '¿Cómo llegó a ser la persona que cuida a su familiar?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C09', o: ['Fue una decisión mía', 'Nadie más podía hacerlo', 'Me lo pidió la familia o el paciente', 'Ocurrió poco a poco', 'Otra razón'] }] },
           { n: 10, q: '¿Cuenta con otras personas que también ayuden a cuidarlo(a)?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C10', o: ['Sí, con frecuencia', 'Sí, de vez en cuando', 'No, cuido solo(a)'] }] },
           { n: 11, q: '¿Con qué frecuencia hace usted estas tareas por su familiar?', items: [{ t: 'grid', k: 'C11', rows: ['Dar o gestionar los medicamentos', 'Acompañarlo(a) a citas y exámenes', 'Hacer trámites (autorizaciones, entregas, citas)', 'Acompañarlo(a) a las aplicaciones o infusiones', 'Ayudarle con la alimentación, el aseo o la movilidad', 'Vigilar señales de alarma (respiración, tragar, voz)', 'Apoyo emocional'], cols: ['Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca'] }] },
-          { n: 12, q: '¿Cuántas horas dedica al cuidado de su familiar?', items: [{ t: 'nums', k: 'C12', f: [['buena', 'En una semana buena de la enfermedad', 'horas por semana', { min: 0, max: 168 }], ['mala', 'En una semana mala de la enfermedad', 'horas por semana', { min: 0, max: 168 }]] }] }
+          { n: 12, q: '¿Cuántas horas dedica al cuidado de su familiar?', items: [{ t: 'nums', k: 'C12', f: [['buena', 'En una semana buena de la enfermedad', 'horas por semana', { min: 0, max: 168 }], ['mala', 'En una semana mala de la enfermedad', 'horas por semana', { min: 0, max: 168 }]] }] },
+          { id: 'C_noches', q: 'En una semana típica, ¿cuántas noches tiene que levantarse o estar pendiente de su familiar?', items: [{ t: 'nums', k: 'C_noches', f: [['', 'Noches', 'por semana', { min: 0, max: 7 }]] }] }
         ]
       },
       {
         titulo: 'El recorrido de su familiar visto desde su lugar', min: 10,
         preguntas: [
+          { id: 'C_severidad', q: 'En las últimas 4 semanas, ¿cómo ha estado la miastenia de su familiar?', note: 'Marque una sola respuesta. Nos permite comparar el esfuerzo de cuidar según qué tan activa está la enfermedad.', items: [{ t: 'single', k: 'C_severidad', o: ['Sin síntomas o casi sin síntomas', 'Síntomas leves que no le impiden hacer sus actividades', 'Síntomas que le impiden hacer algunas actividades', 'Síntomas que le impiden hacer muchas actividades; necesita ayuda casi todos los días', 'Estuvo en crisis o hospitalizado(a)'] }] },
+          { id: 'C_ayuda_avd', q: '¿Para cuáles de estas actividades necesita hoy su familiar la ayuda de otra persona?', note: 'Puede marcar varias respuestas.', items: [{ t: 'multi', k: 'C_ayuda_avd', o: ['Comer o tragar', 'Bañarse', 'Vestirse o arreglarse', 'Ir al baño', 'Levantarse, caminar o subir escaleras', 'Tomar sus medicamentos', 'Salir de la casa o transportarse', 'Hacer compras, cocinar u oficios de la casa', 'Manejar el dinero o hacer trámites', 'Comunicarse (hablar por teléfono, hacerse entender)', 'Ninguna'], excl: ['Ninguna'] }] },
           { n: 13, q: '¿Cuánto tiempo pasó desde los primeros síntomas de su familiar hasta que le dijeron que tenía miastenia gravis?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C13', o: ['Menos de 6 meses', 'De 6 meses a 1 año', 'De 1 a 2 años', 'Más de 2 años', 'No sé / no estaba presente'] }] },
           { n: 14, q: 'Desde que empezó la enfermedad, ¿cuántas veces ha tenido que intervenir usted para que la atención avanzara?', items: [{ t: 'grid', k: 'C14', rows: ['Insistir o llamar para conseguir una cita', 'Reclamar un medicamento o una aplicación', 'Presentar tutela, derecho de petición o queja', 'Buscar otro médico o institución', 'Pagar de su bolsillo para no esperar', 'Llevarlo(a) a urgencias porque no tuvo otra opción'], cols: ['Nunca', 'Una vez', 'Varias veces', 'Muchas veces'] }] },
           { n: 15, q: 'En un mes típico, ¿cuánto tiempo le toman los trámites (autorizaciones, entrega de medicamentos, aplicaciones, citas)?', items: [{ t: 'nums', k: 'C15', f: [['horas', 'Horas dedicadas a trámites', 'horas al mes'], ['viajes', 'Desplazamientos', 'viajes al mes']] }] },
@@ -381,6 +463,7 @@
           { n: 27, q: 'Cuestionario sobre la carga del cuidador', note: 'A continuación, se presenta una lista de afirmaciones, en las cuales se refleja cómo se sienten, a veces, las personas que cuidan a otra persona. Después de leer cada afirmación, debe indicar con qué frecuencia se siente Ud. así: nunca, raramente, algunas veces, bastante a menudo y casi siempre. A la hora de responder piense que no existen respuestas acertadas o equivocadas, sino tan sólo su experiencia.', fuente: 'zarit', items: [{ t: 'grid', k: 'C27', rows: ZARIT, cols: ['Nunca', 'Rara vez', 'Algunas veces', 'Bastantes veces', 'Casi siempre'] }] },
           { n: 28, q: '¿Cómo describiría su salud en general?', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'C28', o: ['Excelente', 'Muy buena', 'Buena', 'Regular', 'Mala'] }] },
           { n: 29, q: '¿Ha necesitado atención médica o psicológica por el cansancio de cuidar?', s: true, note: OPCIONAL + ' Marque una sola respuesta.', items: [{ t: 'single', k: 'C29', o: ['Sí, y la recibí', 'Sí, y no la he podido recibir', 'No la he necesitado'] }] },
+          { id: 'C_gasto_salud', q: 'En los últimos 12 meses, ¿cuánto ha pagado de su bolsillo por su propia salud a causa del cansancio o el estrés de cuidar (consultas, medicamentos, terapias)?', s: true, note: OPCIONAL, showIf: r => r.C29 !== 'No la he necesitado', items: [{ t: 'nums', k: 'C_gasto_salud', f: [['', 'Total aproximado', 'pesos']] }] },
           { n: 30, q: 'Cuando usted no puede cuidar…', s: true, note: OPCIONAL, items: [
             { t: 'multi', k: 'C30_reemplaza', label: '¿Quién lo(la) reemplaza?', o: ['Otro familiar', 'Un amigo o vecino', 'Una persona contratada', 'Nadie me reemplaza'], excl: ['Nadie me reemplaza'] },
             { t: 'single', k: 'C30_paga', label: '¿Ha tenido que pagar a alguien para ello?', o: ['Sí', 'No'] },
@@ -395,6 +478,7 @@
           { n: 31, q: '¿Cuál era su situación antes de asumir el cuidado?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C31', o: ['Trabajaba con contrato', 'Trabajaba de forma independiente o informal', 'Estudiaba', 'Oficios del hogar', 'Estaba pensionado(a)', 'No trabajaba ni estudiaba'] }] },
           { n: 32, q: '¿Cuál es su situación hoy?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C32', o: ['Trabajo con contrato', 'Trabajo de forma independiente o informal', 'Estudio', 'Oficios del hogar', 'Pensionado(a)', 'Dejé de trabajar para cuidar', 'No trabajo ni estudio por otra razón'] }] },
           { n: 33, q: 'Horas que trabaja o trabajaba por semana', note: 'Si no trabaja, deje en blanco.', items: [{ t: 'nums', k: 'C33', f: [['antes', 'Antes de cuidar', 'horas por semana', { min: 0, max: 112 }], ['hoy', 'Hoy', 'horas por semana', { min: 0, max: 112 }]] }] },
+          { id: 'C_ingreso_propio', q: 'Si trabaja o trabajaba, ¿cuánto gana (o ganaba) usted al mes, más o menos?', s: true, note: OPCIONAL + ' Sirve para calcular el valor del tiempo que dedica a cuidar.', items: [{ t: 'single', k: 'C_ingreso_propio', o: ['Menos de 1 salario mínimo', 'De 1 a menos de 2 salarios mínimos', 'De 2 a menos de 4 salarios mínimos', '4 salarios mínimos o más', 'No tengo ingresos propios', 'Prefiero no responder'] }] },
           { n: 34, q: 'En el último mes, ¿cuántos días dejó de trabajar, llegó tarde o salió antes por acompañar o atender a su familiar?', items: [{ t: 'nums', k: 'C34', f: [['dias', 'Días completos', 'días', { min: 0, max: 31 }], ['medios', 'Medios días, llegadas tarde o salidas antes de hora', 'veces']] }] },
           { n: 35, q: 'En los últimos 12 meses, ¿cuántos días tuvo que pedir permiso, tomar vacaciones o licencia no remunerada, o faltar al trabajo por cuidar?', items: [{ t: 'nums', k: 'C35', f: [['dias', 'Días en total', 'días', { min: 0, max: 366 }], ['vacaciones', 'De esos, días usados en vacaciones o licencia', 'días', { min: 0, max: 366 }]] }] },
           { n: 36, q: 'De esos días, ¿cuántos fueron por…?', items: [{ t: 'nums', k: 'C36', f: [['citas', 'Citas, exámenes, aplicaciones y trámites', 'días'], ['crisis', 'Hospitalizaciones o crisis', 'días']] }] },
@@ -418,8 +502,10 @@
         titulo: 'Gastos y economía', min: 8,
         intro: 'Escriba cuánto paga usted o su hogar por la enfermedad de su familiar. Deje en blanco lo que no aplique. Un cálculo aproximado es suficiente.',
         preguntas: [
-          { n: 42, q: 'Anote los gastos que usted asume por la enfermedad de su familiar:', items: [{ t: 'costs', k: 'C42' }] },
+          { n: 42, q: 'Anote los gastos que usted asume por la enfermedad de su familiar:', note: 'Gastos que se repiten. Las adaptaciones de la vivienda y las compras grandes van en la siguiente pregunta.', fuente: 'costos', items: [{ t: 'costs', k: 'C42' }] },
+          { id: 'C_adapt', q: 'Por la enfermedad de su familiar, ¿han tenido que hacer alguna de estas adaptaciones en la vivienda (la suya o la de su familiar), comprar ayudas o cambiar de vivienda?', note: 'Para cada fila elija una opción. Si lo hicieron, anote más o menos cuánto costó en total, en qué año y quién lo pagó. Si su familiar también responde, no importa que ambos reporten lo mismo.', fuente: 'costos', items: [{ t: 'invest', k: 'C_adapt' }] },
           { n: 43, q: 'En total, ¿cuánto gasta usted por el cuidado de su familiar en un mes típico y en un mes malo?', s: true, note: OPCIONAL, items: [{ t: 'nums', k: 'C43', f: [['tipico', 'Mes típico', 'pesos'], ['malo', 'Mes malo (crisis, hospitalización)', 'pesos']] }] },
+          { id: 'C_reemplazo', q: 'Si tuviera que pagarle a otra persona para que hiciera lo que usted hace por su familiar, ¿cuánto cree que costaría al mes?', note: 'Un cálculo aproximado es suficiente.', fuente: 'costos', items: [{ t: 'nums', k: 'C_reemplazo', f: [['', 'Costo mensual estimado', 'pesos']] }] },
           { n: 44, q: 'En los últimos 12 meses, ¿cuántos meses malos tuvo su familiar (con crisis, hospitalización o muchas consultas de urgencia)?', items: [{ t: 'nums', k: 'C44', f: [['', 'Meses malos', 'meses', { min: 0, max: 12 }]] }] },
           { n: 45, q: 'Desde que cuida a su familiar, ¿cada una de estas situaciones ha sido para usted y su hogar una preocupación grande, alguna preocupación o ninguna preocupación?', items: [{ t: 'grid', k: 'C45', rows: PREOCUPACIONES_FILAS, cols: PREOCUPACION }] },
           { n: 46, q: 'En el último año, ¿cuántas veces no pudieron hacer algo de esto por falta de dinero o por lo que costaba el traslado?', s: true, note: OPCIONAL, items: [{ t: 'grid', k: 'C46', rows: ['Ir a una cita', 'Hacer un examen', 'Comprar o reclamar un medicamento', 'Reducir o espaciar la dosis para que rindiera', 'Ir a urgencias por haber esperado'], cols: FRECUENCIA_4 }] },
@@ -434,30 +520,62 @@
         preguntas: [
           { n: 50, q: 'Si pudiera cambiar una sola cosa en la forma en que atienden a su familiar, ¿cuál sería?', note: OPCIONAL, items: [{ t: 'long', k: 'C50' }] },
           { n: 51, q: '¿Y una sola cosa que la institución o la EPS deberían hacer por los cuidadores?', note: OPCIONAL, items: [{ t: 'long', k: 'C51' }] },
-          { n: 52, q: '¿Hay algo importante que no le preguntamos y que crea que debemos saber?', note: OPCIONAL, items: [{ t: 'long', k: 'C52' }] }
+          { n: 52, q: '¿Hay algo importante que no le preguntamos y que crea que debemos saber?', note: OPCIONAL, items: [{ t: 'long', k: 'C52' }] },
+          { id: 'C_asistencia', q: '¿Alguien le ayudó a responder esta encuesta?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C_asistencia', o: ASISTENCIA }] }
         ]
       }
     ]
   };
 
+  /* Gastos que se repiten (mes típico, mes malo, últimos 12 meses). */
   const COSTOS = [
-    { grupo: 'Gastos médicos directos' },
+    { grupo: 'Gastos médicos de bolsillo' },
     'Medicamentos pagados (no entregados o no cubiertos)',
     'Cuotas moderadoras y copagos',
     'Consultas, exámenes y terapias particulares',
-    'Medicina prepagada o póliza por la enfermedad',
+    'Urgencias, hospitalizaciones o procedimientos pagados',
+    'Medicina prepagada, póliza o plan complementario (por la enfermedad)',
+    'Insumos y equipos médicos (oxímetro, nebulizador, oxígeno, sondas, gafas o parches para la visión doble)',
     { grupo: 'Gastos no médicos' },
-    'Transporte a citas, exámenes y aplicaciones',
+    'Transporte a citas, exámenes y aplicaciones (bus, taxi, transporte especial, peajes, parqueadero)',
+    'Gastos del acompañante en citas y hospitalizaciones (transporte, comida)',
     'Alimentación fuera de casa por trámites y citas',
-    'Alojamiento',
+    'Alojamiento cuando hay que viajar a otra ciudad',
+    'Trámites (fotocopias, llamadas, internet, abogado o tramitador)',
     'Cuidador o ayuda pagada en casa',
+    'Ayuda pagada para los oficios de la casa',
     'Cuidado de hijos u otras personas a cargo',
-    'Adecuaciones del hogar y ayudas técnicas (barandas, baño adaptado, silla…)',
-    'Alimentación especial y suplementos',
+    'Alimentación especial y suplementos (comida blanda o licuada, espesantes, suplementos)',
+    'Más gasto en servicios públicos por la enfermedad (energía de equipos, ventilador o aire acondicionado)',
     'Otros (escriba cuáles)'
   ];
 
   const DEPARTAMENTOS = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C.', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'];
 
-  window.ENCUESTAS = { paciente, cuidador, COSTOS, DEPARTAMENTOS, FUENTES };
+  /* Numeración: cada pregunta conserva su identificador estable (P38, C27, P_adapt…), que da
+     nombre a las variables; el número que ve el participante se asigna aquí en orden. Los saltos
+     del cuestionario en papel (v16) apuntan al número antiguo y se traducen al identificador. */
+  [paciente, cuidador].forEach(enc => {
+    const pad = n => enc.prefijo + String(n).padStart(2, '0');
+    const preguntas = enc.partes.flatMap(p => p.preguntas);
+    preguntas.forEach(q => { if (!q.id) q.id = pad(q.n); });
+    preguntas.forEach(q => q.items.forEach(it => {
+      if (it.salto) Object.keys(it.salto).forEach(op => { if (typeof it.salto[op] === 'number') it.salto[op] = pad(it.salto[op]); });
+    }));
+    preguntas.forEach((q, i) => { q.n = i + 1; });
+    const nDe = id => (preguntas.find(q => q.id === id) || {}).n;
+    preguntas.forEach(q => q.items.forEach(it => {
+      if (it.salto) it.saltoN = Object.fromEntries(Object.entries(it.salto).map(([op, id]) => [op, nDe(id)]));
+    }));
+    enc.total = preguntas.length;
+  });
+  const usos = id => [paciente, cuidador].map(enc => {
+    const ns = enc.partes.flatMap(p => p.preguntas).filter(q => q.fuente === id).map(q => q.n);
+    if (!ns.length) return null;
+    const lista = ns.length === 1 ? 'pregunta ' + ns[0] : 'preguntas ' + ns.slice(0, -1).join(', ') + ' y ' + ns[ns.length - 1];
+    return (enc.rol === 'paciente' ? 'Pacientes' : 'Cuidadores') + ', ' + lista;
+  }).filter(Boolean);
+  Object.keys(FUENTES).forEach(id => { const u = usos(id); if (u.length) FUENTES[id].usadaEn = u.join(' · '); });
+
+  window.ENCUESTAS = { paciente, cuidador, COSTOS, ADAPTACIONES, DEPARTAMENTOS, FUENTES };
 })();
