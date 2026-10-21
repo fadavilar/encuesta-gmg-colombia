@@ -1,4 +1,20 @@
 /* Encuesta gMG Colombia — estilos */
+/* Código de hogar, MG-ADL y adaptaciones (v21-oct-2026) */
+.hogar { border-left: 4px solid var(--accent); margin: 0 0 18px; }
+.code-big { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin: .1em 0 .4em; letter-spacing: .08em; }
+.share { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.share .btn { text-decoration: none; display: inline-flex; align-items: center; }
+.hogar-otro { margin-top: 14px; }
+.hogar-otro summary { cursor: pointer; font-weight: 700; color: var(--accent); min-height: 40px; display: flex; align-items: center; }
+.hogar-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.hogar-form .field { flex: 1 1 220px; margin: 0; }
+.adl-opts { grid-template-columns: 1fr !important; clear: both; }
+.adl-opts .opt { background: var(--surface); }
+.score { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6em; height: 1.6em; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent); margin-right: 6px; font-size: .9rem; }
+.invest-estado { margin-bottom: 10px; }
+.invest-estado .pill { flex: 1 1 180px; }
+.vinculo .field { margin-top: 0; }
 :root {
   --bg: #f5f7f8;
   --surface: #ffffff;
