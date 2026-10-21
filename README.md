@@ -1,9 +1,9 @@
 # Encuesta gMG Colombia
 
 Aplicación web para recoger, por enlace enviado por correo, las respuestas de las dos encuestas autoaplicadas del
-*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026):
+*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026, rev. 2):
 
-- **Pacientes** — 91 preguntas en 8 partes.
+- **Pacientes** — 88 preguntas en 8 partes.
 - **Cuidadores** — 65 preguntas en 7 partes.
 
 Sitio publicado: <https://fadavilar.github.io/encuesta-gmg-colombia/>
@@ -75,6 +75,10 @@ Hughes et al. 2023 ([doi:10.3389/fpubh.2023.1247931](https://doi.org/10.3389/fpu
   resultados; alternativas de respuesta por teléfono o en papel.
 - Minimización de datos: no se pide nombre ni documento; el contacto solo se pide si la persona autoriza el recontacto.
 - `P_asistencia` / `C_asistencia` registran si alguien ayudó a responder (calidad del dato).
+- Farmacovigilancia: se retiraron las preguntas sobre tratamientos recibidos y efectos de los corticoides (P24–P26 del
+  cuestionario v16), las preguntas no nombran medicamentos que se aplican por vena y todos los campos abiertos piden no
+  mencionar medicamentos específicos.
+- Responsable del tratamiento de datos: el investigador responsable.
 - Pendiente de configurar en `js/config.js`: `comiteEtica` (concepto del comité, Resolución 8430 de 1993).
 
 ## Instrumentos validados

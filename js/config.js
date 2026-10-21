@@ -5,10 +5,10 @@
    descargar una copia de las respuestas. */
 window.ENCUESTA_CONFIG = {
   endpoint: 'https://script.google.com/macros/s/AKfycbxgytayYeNZRFel5HLmcj_kYmrxj7qnbsUG1-RwBb2CTmtqdDPEcBN6HCm8lfvZP-MjJw/exec',
-  version: 'v21102026',
+  version: 'v21102026-r2',
   estudio: 'Estudio sobre la vida con miastenia gravis generalizada en Colombia',
   realiza: 'Este es un estudio de investigación social a cargo del investigador responsable, Fabian Antonio Dávila Ramírez.',
-  responsableDatos: 'Funcolehf',
+  responsableDatos: 'Fabian Antonio Dávila Ramírez, investigador responsable',
   conservacion: '3 meses',
   // Concepto del comité de ética (Resolución 8430 de 1993). Ejemplo: 'Aprobado por el Comité de Ética de …, acta n.º … del …'.
   comiteEtica: '',
