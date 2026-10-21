@@ -145,16 +145,20 @@
       <span class="warn" hidden></span>
     </label>`;
   }
-  function fieldText(k, label, ph, max) {
+  // Campos abiertos: se pide no nombrar medicamentos para no recoger posibles eventos de farmacovigilancia.
+  const AVISO_MED = 'Por favor, no mencione nombres de medicamentos específicos.';
+  const avisoHtml = id => `<span class="hint" id="${id}">${AVISO_MED}</span>`;
+  function fieldText(k, label, ph, max, aviso) {
     return `<label class="field"><span class="f-label">${esc(label)}</span>
-      <input type="text" data-k="${k}" value="${esc(st.r[k] || '')}" maxlength="${max || 300}" ${ph ? `placeholder="${esc(ph)}"` : ''}></label>`;
+      <input type="text" data-k="${k}" value="${esc(st.r[k] || '')}" maxlength="${max || 300}" ${ph ? `placeholder="${esc(ph)}"` : ''} ${aviso ? `aria-describedby="h-${k}"` : ''}>
+      ${aviso ? avisoHtml('h-' + k) : ''}</label>`;
   }
   function fieldSelect(k, label, opts) {
     const v = st.r[k] || '';
     return `<label class="field"><span class="f-label">${esc(label)}</span>
       <select data-k="${k}"><option value="">—</option>${opts.map(x => `<option ${x === v ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></label>`;
   }
-  const otroField = it => it.otro ? fieldText(it.k + '_otro', 'Otro, ¿cuál?') : '';
+  const otroField = it => it.otro ? fieldText(it.k + '_otro', 'Otro, ¿cuál?', '', 300, true) : '';
   const legend = (it, q) => it.label ? `<legend class="item-label">${esc(it.label)}</legend>` : `<legend class="sr-only">${esc(q.q)}</legend>`;
 
   function renderItem(it, q) {
@@ -176,7 +180,7 @@
       case 'nums':
         return `<div class="fields">${it.f.map(f => fieldNum(f[0] ? it.k + '_' + f[0] : it.k, f[1], f[2], f[3])).join('')}</div>`;
       case 'texts':
-        return `<div class="fields">${it.f.map(f => fieldText(f[0] ? it.k + '_' + f[0] : it.k, f[1])).join('')}</div>`;
+        return `<div class="fields">${it.f.map(f => fieldText(f[0] ? it.k + '_' + f[0] : it.k, f[1], '', 300, f[0] !== 'eps')).join('')}</div>`;
       case 'place': {
         const d = st.r[it.k + '_depto'] || '';
         return `<div class="fields">
@@ -203,14 +207,15 @@
         }).join('')}</div>`;
       case 'long':
         return `<label class="field"><span class="sr-only">${esc(q.q)}</span>
-          <textarea data-k="${it.k}" rows="4" maxlength="5000" placeholder="Escriba aquí…">${esc(v || '')}</textarea></label>`;
+          <textarea data-k="${it.k}" rows="4" maxlength="5000" placeholder="Escriba aquí…" aria-describedby="h-${it.k}">${esc(v || '')}</textarea>
+          ${avisoHtml('h-' + it.k)}</label>`;
       case 'costs': {
         let i = 0;
         return `<div class="costs">${E.COSTOS.map(c => {
           if (typeof c !== 'string') return `<h4 class="cost-group">${esc(c.grupo)}</h4>`;
           const b = it.k + '_' + pad2(++i);
           return `<fieldset class="cost"><legend>${esc(c)}</legend>
-            ${c.startsWith('Otros') ? fieldText(b + '_cual', '¿Cuáles?') : ''}
+            ${c.startsWith('Otros') ? fieldText(b + '_cual', '¿Cuáles?', '', 300, true) : ''}
             <div class="cost-fields">
               ${fieldNum(b + '_tipico', 'En un mes típico', 'pesos')}
               ${fieldNum(b + '_malo', 'En un mes malo', 'pesos')}
@@ -224,7 +229,7 @@
           const b = it.k + '_' + pad2(i + 1);
           const hecho = st.r[b + '_estado'] === 'Lo hicimos o lo compramos';
           return `<fieldset class="cost invest"><legend>${esc(c)}</legend>
-            ${c.startsWith('Otra') ? fieldText(b + '_cual', '¿Cuál?') : ''}
+            ${c.startsWith('Otra') ? fieldText(b + '_cual', '¿Cuál?', '', 300, true) : ''}
             <div class="pills invest-estado">${['No ha sido necesario', 'Lo hicimos o lo compramos', 'Lo necesitamos y no hemos podido'].map(o => `
               <label class="pill"><input type="radio" name="${b}_estado" value="${o}" data-k="${b}_estado" ${st.r[b + '_estado'] === o ? 'checked' : ''}><span>${o}</span></label>`).join('')}</div>
             <div class="cost-fields invest-detalle" data-invest="${b}" ${hecho ? '' : 'hidden'}>
@@ -375,6 +380,7 @@
           <li>Algunas preguntas solo aparecen si aplican a su caso; las demás se saltan solas.</li>
           <li>Cuando le pidan dinero o tiempo, un cálculo aproximado es suficiente. No necesita facturas. Si no sabe, deje en blanco.</li>
           <li>Las preguntas marcadas como <span class="badge-sens inline">Tema sensible</span> tratan temas sensibles (salud mental, trabajo, dinero, origen étnico). Puede dejarlas en blanco.</li>
+          <li>En las respuestas que escriba con sus propias palabras, por favor no mencione nombres de medicamentos específicos.</li>
           <li>Puede hacer pausas y continuar después: sus respuestas se guardan en este dispositivo y navegador. Vuelva a abrir el mismo enlace para seguir.</li>
           <li>Si se cansa o le cuesta escribir, puede pedir a alguien de confianza que le ayude a marcar, pero las respuestas deben ser las suyas.</li>
           <li>Cuando termine, toque <strong>Enviar mis respuestas</strong> al final.</li>

@@ -1,4 +1,4 @@
-/* Contenido de las encuestas autoaplicadas (v21-oct-2026).
+/* Contenido de las encuestas autoaplicadas (v21-oct-2026 (rev. 2)).
    Texto tomado de Encuesta_gMG_Paciente_autoaplicada_v16102026.docx y
    Encuesta_gMG_Cuidador_autoaplicada_v16102026.docx.
 
@@ -114,7 +114,7 @@
     rol: 'paciente',
     prefijo: 'P',
     titulo: 'Encuesta para personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026',
+    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026 (rev. 2)',
     tiempo: '40 a 60 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia con la miastenia gravis. Esta encuesta es para personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -195,12 +195,8 @@
       {
         titulo: 'Su tratamiento y el acceso a medicamentos', min: 12,
         preguntas: [
-          { n: 24, q: '¿Cuáles de estos tratamientos ha recibido desde el diagnóstico?', items: [
-            { t: 'grid', k: 'P24', rows: ['Piridostigmina', 'Corticoides (por ejemplo, prednisona)', 'Inmunosupresores (azatioprina, micofenolato, otros)', 'Inmunoglobulina intravenosa', 'Plasmaféresis', 'Cirugía del timo (timectomía)', 'Rituximab', 'Medicamentos biológicos o terapias dirigidas más recientes (segunda línea)', 'Otro'], cols: ['Lo recibo hoy', 'Lo recibí antes', 'Nunca lo he recibido', 'No sé'] },
-            { t: 'texts', k: 'P24', f: [['otro', 'Si marcó “Otro”, ¿cuál?']] }
-          ] },
-          { n: 25, q: '¿Hace cuánto toma (o tomó) corticoides?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P25', o: ['Nunca los he tomado', 'Menos de 3 meses', 'De 3 a 12 meses', 'Más de 1 año'], salto: { 'Nunca los he tomado': 27 } }] },
-          { n: 26, q: '¿Qué efectos ha notado con los corticoides?', note: 'Solo si tomó corticoides. Puede marcar varias respuestas.', showIf: r => r.P25 !== 'Nunca los he tomado', items: [{ t: 'multi', k: 'P26', o: ['Aumento de peso o cara redonda', 'Mal dormir', 'Cambios de ánimo', 'Glucosa alta o diabetes', 'Presión alta', 'Dolor de estómago o gastritis', 'Pérdida de masa ósea o fracturas', 'Ninguno'], excl: ['Ninguno'], otro: true }] },
+          // v22: se retiraron P24 (tratamientos recibidos), P25 y P26 (corticoides y sus efectos) para no recoger
+          // información que obligue a reportar eventos de farmacovigilancia.
           { n: 27, q: '¿Le recomendaron o le hicieron cirugía del timo?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P27', o: ['No me hablaron de esa cirugía', 'Me la recomendaron y no me la hicieron', 'Me la hicieron', 'Me la recomendaron y la estoy esperando'] }] },
           { n: 28, q: '¿Alguna vez dejó de tomar o cambió un medicamento por su cuenta o por indicación médica?', items: [
             { t: 'single', k: 'P28', o: ['No', 'Sí, por indicación médica', 'Sí, por decisión mía', 'Sí, ambas'] },
@@ -209,8 +205,8 @@
           { n: 29, q: '¿Cómo consigue sus medicamentos cada mes?', note: 'Puede marcar varias respuestas.', items: [{ t: 'multi', k: 'P29', o: ['Los entrega la EPS en mi casa', 'Los recojo en la farmacia de la EPS', 'Los compro con mi dinero', 'Los gestiona un familiar o cuidador', 'Me los entrega una fundación'], otro: true }] },
           { n: 30, q: 'En el último año, ¿cuántas veces se quedó sin un medicamento o sin una aplicación? ¿Cuántos días lo pasó en total sin él?', items: [{ t: 'nums', k: 'P30', f: [['veces', 'Veces', 'número'], ['dias', 'Días en total sin medicamento', 'días']] }] },
           { n: 31, q: 'En esos días sin medicamento, ¿qué le pasó?', note: 'Solo si se quedó sin medicamento. Puede marcar varias respuestas.', showIf: r => r.P30_veces !== '0', items: [{ t: 'multi', k: 'P31', o: ['Nada', 'Empeoraron mis síntomas', 'Fui a urgencias', 'Me hospitalizaron', 'Tuve que comprarlo yo mismo(a)'], excl: ['Nada'], otro: true }] },
-          { n: 32, q: '¿Recibe medicamentos que se aplican por vena (como la inmunoglobulina)?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P32', o: ['Sí', 'No'], salto: { 'No': 36 } }] },
-          { n: 33, q: '¿Dónde se aplican esos medicamentos?', note: 'Puede marcar varias respuestas.', showIf: r => r.P32 !== 'No', items: [{ t: 'multi', k: 'P33', o: ['Hospital o clínica', 'Centro de infusión', 'En mi casa'], otro: true }] },
+          { n: 32, q: '¿Recibe tratamientos que se aplican por vena?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'P32', o: ['Sí', 'No'], salto: { 'No': 36 } }] },
+          { n: 33, q: '¿Dónde se aplican esos tratamientos?', note: 'Puede marcar varias respuestas.', showIf: r => r.P32 !== 'No', items: [{ t: 'multi', k: 'P33', o: ['Hospital o clínica', 'Centro de infusión', 'En mi casa'], otro: true }] },
           { n: 34, q: 'Por cada aplicación, ¿cuánto tiempo toma conseguirla y recibirla (incluido el traslado y la espera)?', showIf: r => r.P32 !== 'No', items: [{ t: 'nums', k: 'P34', f: [['horas', 'Tiempo desde que sale de casa hasta que regresa', 'horas'], ['dias', 'Tiempo entre la orden y la aplicación', 'días']] }] },
           { n: 35, q: '¿Ha necesitado alguno de estos trámites para conseguir un medicamento o una atención?', s: true, note: OPCIONAL, showIf: r => r.P32 !== 'No', items: [{ t: 'grid', k: 'P35', rows: ['Tutela', 'Derecho de petición', 'Queja ante la Superintendencia de Salud'], cols: FRECUENCIA_4 }] },
           { n: 36, q: '¿Cada cuánto lo citan a control con neurología?', items: [
@@ -370,7 +366,7 @@
     rol: 'cuidador',
     prefijo: 'C',
     titulo: 'Encuesta para cuidadores de personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026',
+    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026 (rev. 2)',
     tiempo: '30 a 45 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia cuidando a una persona con miastenia gravis. Esta encuesta es para cuidadores principales de personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -448,7 +444,7 @@
           { n: 20, q: 'Pensando en esas hospitalizaciones…', showIf: r => r.C19 !== 'No', items: [{ t: 'nums', k: 'C20', f: [['n', 'Número de hospitalizaciones', 'veces'], ['noches', 'Noches en que usted acompañó', 'noches']] }] },
           { n: 21, q: '¿Quién se encarga de los medicamentos de su familiar?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C21', o: ['Yo', 'Él o ella misma', 'Otro familiar', 'Entre varios'] }] },
           { n: 22, q: 'En el último año, ¿cuántos días estuvo su familiar sin un medicamento o sin una aplicación?', items: [{ t: 'nums', k: 'C22', f: [['', 'Días sin medicamento', 'días', { min: 0, max: 366 }]] }] },
-          { n: 23, q: '¿Su familiar recibe medicamentos que se aplican por vena (como la inmunoglobulina)?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C23', o: ['Sí', 'No'], salto: { 'No': 25 } }] },
+          { n: 23, q: '¿Su familiar recibe tratamientos que se aplican por vena?', note: 'Marque una sola respuesta.', items: [{ t: 'single', k: 'C23', o: ['Sí', 'No'], salto: { 'No': 25 } }] },
           { n: 24, q: 'Para cada aplicación…', showIf: r => r.C23 !== 'No', items: [
             { t: 'single', k: 'C24_lleva', label: '¿Quién lo(la) lleva?', o: ['Yo', 'Otro familiar', 'Una persona contratada', 'Va solo(a)'] },
             { t: 'nums', k: 'C24', f: [['horas', 'Tiempo total (traslado, espera y aplicación)', 'horas']] }
