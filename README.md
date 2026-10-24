@@ -8,6 +8,12 @@ Aplicación web para recoger, por enlace enviado por correo, las respuestas de l
 
 Sitio publicado: <https://fadavilar.github.io/encuesta-gmg-colombia/>
 
+## Tablero epidemiológico
+
+La carpeta [`tablero/`](tablero/) contiene el tablero de miastenia gravis en Colombia (RIPS–SISPRO y MIPRES), que lee el
+libro Excel en el navegador y no incluye datos: <https://fadavilar.github.io/encuesta-gmg-colombia/tablero/>. Ver
+[`tablero/README.md`](tablero/README.md).
+
 ## Cómo funciona
 
 - HTML/CSS/JS sin dependencias, publicado en GitHub Pages. El repositorio **no contiene respuestas**.
