@@ -5,5 +5,3 @@
 .DS_Store
 Thumbs.db
 desktop.ini
-# el tablero necesita su geometría; los libros .xlsx siguen excluidos
-!tablero/colombia_deptos.json
