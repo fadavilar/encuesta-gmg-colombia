@@ -21,6 +21,10 @@ function doPost(e) {
   try {
     var body = JSON.parse(e.postData.contents);
     if (body.hp) return json_({ ok: true }); // trampa para robots: se descarta en silencio
+    // Acceso privado: si existe la propiedad CLAVE_ACCESO (Configuración del proyecto →
+    // Propiedades de la secuencia de comandos), solo se aceptan envíos con esa clave.
+    var clave = PropertiesService.getScriptProperties().getProperty('CLAVE_ACCESO');
+    if (clave && normClave_(body.acceso) !== normClave_(clave)) return json_({ ok: false, error: 'acceso' });
     var d = body.data || {};
     var nombreHoja = HOJAS[d.rol];
     if (!nombreHoja || !d._id) return json_({ ok: false, error: 'datos incompletos' });
@@ -80,6 +84,10 @@ function limpiar_(v) {
   var s = v == null ? '' : String(v);
   if (/^[=+\-@]/.test(s)) s = "'" + s;
   return s.slice(0, 45000);
+}
+
+function normClave_(s) {
+  return String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
 }
 
 function json_(obj) {

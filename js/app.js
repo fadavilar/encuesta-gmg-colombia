@@ -53,7 +53,34 @@
   }
   const normCodigo = s => String(s || '').toUpperCase().replace(/\s+/g, '').replace(/[^A-Z0-9-]/g, '').slice(0, 20);
   const otroRol = () => (S.rol === 'paciente' ? 'cuidador' : 'paciente');
-  const enlaceOtro = () => location.origin + location.pathname + '?r=' + otroRol() + '&c=' + encodeURIComponent(st.hogar.codigo);
+  const enlaceOtro = () => location.origin + location.pathname + '?r=' + otroRol() + '&c=' + encodeURIComponent(st.hogar.codigo)
+    + (claveAcceso ? '&k=' + encodeURIComponent(claveAcceso) : '');
+
+  /* ---------- acceso privado con la clave del estudio ---------- */
+  let claveAcceso = '';
+  const normClave = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  async function huella(clave) {
+    if (!(window.crypto && crypto.subtle)) return '';
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('gmg-acceso|' + normClave(clave)));
+    return Array.from(new Uint8Array(buf), x => x.toString(16).padStart(2, '0')).join('');
+  }
+  async function claveValida(clave) {
+    return !!clave && (await huella(clave)) === CFG.accesoHash;
+  }
+  function screenAcceso(error) {
+    show(`<article class="paper acceso">
+      <p class="eyebrow">${esc(CFG.estudio)}</p>
+      <h2>Acceso a la encuesta</h2>
+      <p class="lead">Esta encuesta es solo para las personas invitadas al estudio. Escriba la clave de acceso que recibió en el correo de invitación.</p>
+      <form id="form-acceso" class="hogar-form" onsubmit="return false">
+        <label class="field"><span class="f-label">Clave de acceso</span>
+          <input type="text" id="clave-input" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXXX-XXXXX" maxlength="20"></label>
+        <button type="submit" class="btn primary" id="btn-acceso">Entrar</button>
+      </form>
+      <p class="error" id="acceso-error" role="alert" ${error ? '' : 'hidden'}>${error ? esc(error) : ''}</p>
+      <p class="muted">Si no tiene la clave o no le funciona, escriba o llame a: ${contactoHtml()}</p>
+    </article>`);
+  }
   const vincula = () => st.r.consent_vinculacion === 'Sí';
 
   /* ---------- claves de variables ---------- */
@@ -622,6 +649,22 @@
       }
       return;
     }
+    if (b.id === 'btn-acceso') {
+      e.preventDefault();
+      const valor = document.getElementById('clave-input').value;
+      claveValida(valor).then(ok => {
+        if (!ok) {
+          const err = document.getElementById('acceso-error');
+          err.textContent = 'La clave no es correcta. Revísela en el correo de invitación.';
+          err.hidden = false;
+          return;
+        }
+        claveAcceso = normClave(valor);
+        LS.set('gmg:acceso', claveAcceso);
+        arrancar();
+      });
+      return;
+    }
     if (b.id === 'btn-send') { enviar(b); return; }
     if (b.id === 'btn-download') { descargar(); return; }
   });
@@ -682,7 +725,7 @@
         });
       });
     });
-    return { hp: (document.getElementById('hp') || {}).value || '', data: d, diccionario: dic };
+    return { hp: (document.getElementById('hp') || {}).value || '', acceso: claveAcceso, data: d, diccionario: dic };
   }
 
   async function descargar() {
@@ -724,20 +767,38 @@
       screenGracias(info);
     } catch (err) {
       btn.disabled = false;
-      fallback('No pudimos enviar sus respuestas (revise su conexión a internet).');
+      fallback(err.message === 'acceso'
+        ? 'No pudimos enviar sus respuestas porque la clave de acceso no es válida.'
+        : 'No pudimos enviar sus respuestas (revise su conexión a internet).');
     }
   }
 
   /* ---------- arranque ---------- */
   const codigoURL = normCodigo(params.get('c'));
   const rolURL = (params.get('r') || '').toLowerCase();
-  if (!E[rolURL]) {
-    screenInicio();
-  } else {
-    loadState(rolURL, codigoURL);
-    document.title = (rolURL === 'paciente' ? 'Encuesta pacientes' : 'Encuesta cuidadores') + ' · gMG Colombia';
-    document.getElementById('emergency').hidden = rolURL !== 'paciente';
-    if (st.enviado) screenGracias(st);
-    else render();
+  function arrancar() {
+    if (!E[rolURL]) {
+      screenInicio();
+    } else {
+      loadState(rolURL, codigoURL);
+      document.title = (rolURL === 'paciente' ? 'Encuesta pacientes' : 'Encuesta cuidadores') + ' · gMG Colombia';
+      document.getElementById('emergency').hidden = rolURL !== 'paciente';
+      if (st.enviado) screenGracias(st);
+      else render();
+    }
   }
+  // La clave llega en el enlace (?k=) o se escribe en la pantalla de acceso; se recuerda en este dispositivo.
+  async function verificarAcceso() {
+    if (!CFG.accesoHash) { arrancar(); return; }
+    for (const candidata of [params.get('k'), LS.get('gmg:acceso')]) {
+      if (await claveValida(candidata)) {
+        claveAcceso = normClave(candidata);
+        LS.set('gmg:acceso', claveAcceso);
+        arrancar();
+        return;
+      }
+    }
+    screenAcceso(params.get('k') ? 'La clave del enlace no es válida. Escríbala de nuevo o contacte al equipo del estudio.' : '');
+  }
+  verificarAcceso();
 })();
