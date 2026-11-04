@@ -1,7 +1,7 @@
 # Encuesta gMG Colombia
 
 Aplicación web para recoger, por enlace enviado por correo, las respuestas de las dos encuestas autoaplicadas del
-*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026, rev. 3):
+*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026, rev. 4):
 
 - **Pacientes** — 88 preguntas en 8 partes.
 - **Cuidadores** — 65 preguntas en 7 partes.
@@ -73,8 +73,7 @@ Hughes et al. 2023 ([doi:10.3389/fpubh.2023.1247931](https://doi.org/10.3389/fpu
 - Determinantes sociales: zona (cabecera, centro poblado, rural disperso), estrato, tamaño del hogar y dependientes,
   autorreconocimiento étnico (categorías del DANE, opcional), tiempo de traslado a neurología, otras personas a cargo
   del cuidador.
-- Consentimiento: 
-  autorización expresa de datos sensibles; información sobre el almacenamiento en la nube (Google); canal para ejercer
+- Consentimiento: autorización expresa de datos sensibles; información sobre el almacenamiento en la nube (Google); canal para ejercer
   derechos; explicación de la unión paciente–cuidador; aviso al cuidador sobre datos de un tercero; devolución de
   resultados; alternativas de respuesta por teléfono o en papel.
 - Minimización de datos: no se pide nombre ni documento; el contacto solo se pide si la persona autoriza el recontacto.

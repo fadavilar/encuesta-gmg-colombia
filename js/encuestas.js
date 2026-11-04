@@ -1,4 +1,4 @@
-/* Contenido de las encuestas autoaplicadas (v21-oct-2026 (rev. 3)).
+/* Contenido de las encuestas autoaplicadas (v21-oct-2026 (rev. 4)).
    Texto tomado de Encuesta_gMG_Paciente_autoaplicada_v16102026.docx y
    Encuesta_gMG_Cuidador_autoaplicada_v16102026.docx.
 
@@ -114,7 +114,7 @@
     rol: 'paciente',
     prefijo: 'P',
     titulo: 'Encuesta para personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026 (rev. 3)',
+    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026 (rev. 4)',
     tiempo: '40 a 60 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia con la miastenia gravis. Esta encuesta es para personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -126,7 +126,7 @@
         'No se harán exámenes ni procedimientos, y no se cambiará ningún tratamiento.',
         'Si su cuidador principal también participa, responderá su propia encuesta por separado. Sus respuestas no se compartirán entre ustedes.'
       ],
-      riesgos: 'El riesgo es mínimo. Hablar de la enfermedad, del trabajo o del dinero puede cansarlo(a) o despertar emociones. Puede saltarse cualquier pregunta, parar cuando quiera o no enviar la encuesta. Si lo necesita, pida orientación en apoyo psicológico a través de su EPS. Si mientras responde siente que aumenta la debilidad o le cuesta respirar o tragar, deje la encuesta y busque atención de urgencias.',
+      riesgos: 'Es una investigación sin riesgo. Aun así, hablar de la enfermedad, del trabajo o del dinero puede cansarlo(a) o despertar emociones. Puede saltarse cualquier pregunta, parar cuando quiera o no enviar la encuesta. Si lo necesita, pida orientación en apoyo psicológico a través de su EPS. Si mientras responde siente que aumenta la debilidad o le cuesta respirar o tragar, deje la encuesta y busque atención de urgencias.',
       beneficios: 'No recibirá un beneficio económico ni clínico directo. Su participación puede ayudar a que se entienda mejor la carga de la gMG en Colombia y a mejorar el acceso y la atención de otras personas.',
       voluntario: 'Su participación es completamente voluntaria. Puede no participar o retirarse en cualquier momento, sin dar explicaciones y sin que esto afecte la atención médica que recibe, la entrega de medicamentos ni ningún trámite con su EPS o IPS, hoy ni en el futuro. Si se retira, sus respuestas podrán eliminarse mientras no hayan sido anonimizadas ni agregadas.',
       decision: [
@@ -366,7 +366,7 @@
     rol: 'cuidador',
     prefijo: 'C',
     titulo: 'Encuesta para cuidadores de personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026 (rev. 3)',
+    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026 (rev. 4)',
     tiempo: '30 a 45 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia cuidando a una persona con miastenia gravis. Esta encuesta es para cuidadores principales de personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -378,7 +378,7 @@
         'No se harán exámenes ni procedimientos, y no se cambiará ningún tratamiento.',
         'Si su familiar con miastenia también participa, responderá su propia encuesta por separado. Sus respuestas no se compartirán entre ustedes.'
       ],
-      riesgos: 'El riesgo es mínimo. Hablar de la enfermedad, del cuidado, del trabajo o del dinero puede cansarlo(a) o despertar emociones. Puede saltarse cualquier pregunta, parar cuando quiera o no enviar la encuesta. Si lo necesita, pida orientación en apoyo psicológico a través de su EPS.',
+      riesgos: 'Es una investigación sin riesgo. Aun así, hablar de la enfermedad, del cuidado, del trabajo o del dinero puede cansarlo(a) o despertar emociones. Puede saltarse cualquier pregunta, parar cuando quiera o no enviar la encuesta. Si lo necesita, pida orientación en apoyo psicológico a través de su EPS.',
       beneficios: 'No recibirá un beneficio económico ni clínico directo. Su participación puede ayudar a que se entienda mejor la carga de la gMG en Colombia, incluida la que asumen los cuidadores, y a mejorar el acceso y la atención de otras personas.',
       voluntario: 'Su participación es completamente voluntaria. Puede no participar o retirarse en cualquier momento, sin dar explicaciones y sin que esto afecte la atención médica de su familiar, la entrega de medicamentos ni ningún trámite con su EPS o IPS, hoy ni en el futuro. Si se retira, sus respuestas podrán eliminarse mientras no hayan sido anonimizadas ni agregadas.',
       terceros: 'Algunas preguntas tratan de la salud y la situación de su familiar. Responda solo lo que sepa y lo que su familiar estaría de acuerdo en compartir; puede dejar en blanco lo demás.',

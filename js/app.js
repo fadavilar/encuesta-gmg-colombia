@@ -432,7 +432,7 @@
       <h3>Costos y compensación</h3><p>Participar no tiene costo para usted y no recibirá pago por participar.</p>
       <h3>¿Conocerá los resultados?</h3><p>${esc(CFG.devolucion)}</p>
       <h3>Marco normativo y contacto</h3>
-      <p>Este estudio se clasifica como investigación con riesgo mínimo, sin intervención (art. 11, Resolución 8430 de 1993): es solo una encuesta. Se rige por esa resolución, la Declaración de Helsinki y la Ley 1581 de 2012.</p>
+      <p>Este estudio se clasifica como investigación sin riesgo por ser una encuesta, sin ninguna intervención (artículo 11, literal a, de la Resolución 8430 de 1993 del Ministerio de Salud). Se rige por esa resolución, la Declaración de Helsinki y la Ley 1581 de 2012.</p>
       <p>Para dudas antes, durante o después de responder: investigador responsable ${contactoHtml()}.</p>
 
       <h3 id="decision">Su decisión</h3>
