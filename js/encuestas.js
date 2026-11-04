@@ -1,4 +1,4 @@
-/* Contenido de las encuestas autoaplicadas (v21-oct-2026 (rev. 2)).
+/* Contenido de las encuestas autoaplicadas (v21-oct-2026 (rev. 3)).
    Texto tomado de Encuesta_gMG_Paciente_autoaplicada_v16102026.docx y
    Encuesta_gMG_Cuidador_autoaplicada_v16102026.docx.
 
@@ -114,7 +114,7 @@
     rol: 'paciente',
     prefijo: 'P',
     titulo: 'Encuesta para personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026 (rev. 2)',
+    subtitulo: 'Versión autoaplicada para pacientes · v21-oct-2026 (rev. 3)',
     tiempo: '40 a 60 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia con la miastenia gravis. Esta encuesta es para personas adultas con miastenia gravis generalizada.',
     consentimiento: {
@@ -366,7 +366,7 @@
     rol: 'cuidador',
     prefijo: 'C',
     titulo: 'Encuesta para cuidadores de personas con miastenia gravis generalizada',
-    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026 (rev. 2)',
+    subtitulo: 'Versión autoaplicada para cuidadores · v21-oct-2026 (rev. 3)',
     tiempo: '30 a 45 minutos',
     bienvenida: 'Gracias por su interés en contarnos cómo ha sido su experiencia cuidando a una persona con miastenia gravis. Esta encuesta es para cuidadores principales de personas adultas con miastenia gravis generalizada.',
     consentimiento: {

@@ -1,7 +1,7 @@
 # Encuesta gMG Colombia
 
 Aplicación web para recoger, por enlace enviado por correo, las respuestas de las dos encuestas autoaplicadas del
-*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026, rev. 2):
+*Estudio sobre la vida con miastenia gravis generalizada en Colombia* (versión v21-oct-2026, rev. 3):
 
 - **Pacientes** — 88 preguntas en 8 partes.
 - **Cuidadores** — 65 preguntas en 7 partes.
@@ -40,28 +40,16 @@ Gravedad del paciente para estratificar los costos del cuidador:
 - `P38_1`…`P38_8`, `P38_total` y `P38_banda`: MG-ADL autorreportado (leve 0–4, moderada 5–9, grave ≥10).
 - `C_severidad` y `C_ayuda_avd`: gravedad y dependencia según el cuidador; sirven cuando el paciente no responde.
 
-## Acceso privado con clave
+## Acceso
 
-La encuesta solo se abre con la **clave del estudio**, que se entrega en el correo de invitación:
-
-- El enlace del correo la lleva incluida (`?k=<clave>`) y entra directo; quien abra el sitio sin ella ve una pantalla que
-  pide escribirla. El dispositivo la recuerda y el enlace que se comparte con el familiar o cuidador la incluye.
-- La clave **no está en este repositorio**: `js/config.js` solo guarda su huella SHA-256 (`accesoHash`). Se guarda fuera
-  del repositorio, en `CLAVE_ACCESO_encuesta_gMG.txt`.
-- El Apps Script rechaza los envíos sin la clave cuando existe la propiedad `CLAVE_ACCESO` en
-  **Configuración del proyecto → Propiedades de la secuencia de comandos**. La clave no se escribe en la hoja.
-- Para cambiar la clave: calcule la huella de `gmg-acceso|` + la clave en mayúsculas y sin guiones, póngala en
-  `accesoHash`, actualice la propiedad `CLAVE_ACCESO` y envíe el enlace nuevo. `accesoHash: ''` deja la encuesta abierta.
-
-El sitio y su código siguen siendo públicos en GitHub (el plan gratuito de GitHub Pages lo exige): la clave impide
-responder sin invitación, pero el texto de las preguntas puede leerse en el código fuente.
+La encuesta está abierta: se entra directamente con el enlace, sin clave. La pantalla de clave sigue en el código, desactivada (`accesoHash: ''` en `js/config.js`).
 
 ## Enlaces para el correo
 
-Enlace para el correo (pacientes y cuidadores): `https://fadavilar.github.io/encuesta-gmg-colombia/?k=<clave>`.
+Enlace para el correo (pacientes y cuidadores): `https://fadavilar.github.io/encuesta-gmg-colombia/`.
 Abre la portada **¿Quién responde la encuesta?**, donde cada persona elige la encuesta de paciente o de cuidador.
 
-Si el equipo asigna códigos, envíe a cada hogar su propio enlace con `c=`, por ejemplo `?k=<clave>&c=F001`: ese código
+Si el equipo asigna códigos, envíe a cada hogar su propio enlace con `c=`, por ejemplo `?c=F001`: ese código
 pasa a ser el `codigo_hogar` de ambos.
 
 ## Componentes de costos (perspectiva social)
@@ -95,7 +83,6 @@ Hughes et al. 2023 ([doi:10.3389/fpubh.2023.1247931](https://doi.org/10.3389/fpu
   cuestionario v16), las preguntas no nombran medicamentos que se aplican por vena y todos los campos abiertos piden no
   mencionar medicamentos específicos.
 - Responsable del tratamiento de datos: el investigador responsable.
-- Pendiente de configurar en `js/config.js`: `comiteEtica` (concepto del comité, Resolución 8430 de 1993).
 
 ## Instrumentos validados
 
@@ -137,5 +124,5 @@ nuevos.
 ## Editar el contenido
 
 - Texto de las preguntas: [`js/encuestas.js`](js/encuestas.js).
-- Datos del estudio, comité de ética, contacto y URL de envío: [`js/config.js`](js/config.js).
+- Datos del estudio, contacto y URL de envío: [`js/config.js`](js/config.js).
 - Tras cada cambio, suba el número `?v=` de los archivos en `index.html` para evitar que el navegador use una copia vieja.
